@@ -28,7 +28,9 @@ export const userSignup = async (req, res, next) => {
         res.clearCookie("auth_token", {
             path: '/',
             httpOnly: true,
-            signed:true
+            signed: true,
+            sameSite: "none",
+            secure: true,
         })
 
 
@@ -39,10 +41,12 @@ export const userSignup = async (req, res, next) => {
             path: '/',
             expires,
             httpOnly: true,
-            signed: true
+            signed: true,
+            sameSite: "none",
+            secure: true,
         })
 
-        res.status(201).json({ message :'User Created Successfully!' , id: user._id.toString()})
+        res.status(201).json({ message :'User Created Successfully!' , name: user.name , email: user.email})
     } catch (error) {
         res.json({error: error.message})
     }
@@ -60,23 +64,30 @@ export const userLogin = async (req, res, next) => {
         
         
         res.clearCookie("auth_token", {
-            path: '/',
             httpOnly: true,
-            signed:true
-        })
+            domain: "localhost",
+            signed: true,
+            path: "/",
+            sameSite: "none",
+            secure: true,
+            
+        });
 
 
         const token = createToken(user._id.toString() , user.email , "7d")
         const expires = new Date()
         expires.setDate(expires.getDate() + 7)
         res.cookie("auth_token", token, {
-            path: '/',
+            path: "/",
+            domain: "localhost",
             expires,
             httpOnly: true,
-            signed: true
-        })
+            signed: true,
+            sameSite: "none",
+            secure: true,
+        });
 
-        res.status(200).json({ message: 'User Logged in Successfully!', id: user._id.toString() })
+        res.status(200).json({ message: 'User Logged in Successfully!', name: user.name , email: user.email })
     } catch (error) {
         res.json({error: error.message})
     }
