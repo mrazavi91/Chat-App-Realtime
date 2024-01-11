@@ -16,7 +16,7 @@ export default function Footer() {
            <Link
               style={{ color: "white" }}
               className="nav-link"
-              to={"linkedin.com/in/mohammad-razavi-64128a1ab"}
+              to={"https://linkedin.com/in/mohammad-razavi-64128a1ab"}
             >Built by MO R</Link>
           
 
