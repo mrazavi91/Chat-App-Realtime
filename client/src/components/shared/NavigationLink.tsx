@@ -12,6 +12,7 @@ type Props = {
 export default function NavigationLink(props:Props) {
   return (
       <Link
+          onClick={props.onClick}
           className="nav-link"
           to={props.to}
           style={{

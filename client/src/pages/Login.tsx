@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Typography, Button } from '@mui/material'
 import CustomisedInput from '../components/shared/CustomisedInput'
 import { IoMdLogIn } from "react-icons/io";
 import axios from 'axios'
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function Login() {
   const auth = useAuth()
+  const navigate = useNavigate()
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -20,13 +22,20 @@ export default function Login() {
       toast.loading("Signing In!" , {id: "login"})
       await auth?.login(email, password)
       toast.success("Signed in successfully!" , {id: "login"})
-
+      
     } catch (error) {
       toast.error("Signing in Failed!", { id: "login" })
       console.log(error)
     }
     
   }
+
+  useEffect(() => {
+  
+    if (auth?.user) {
+      return navigate('/chat')
+    }
+  },[auth])
 
 
   return (

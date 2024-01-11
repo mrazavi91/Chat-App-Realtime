@@ -39,3 +39,37 @@ export const generateChatCompletion = async (req, res, next) => {
     
 } 
 
+
+
+export const sendChatUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(res.locals.jwtData.id)
+        if (!user) return res.status(401).json({ message: " User not registered or Token Failed " })
+        
+        if (user._id.toString() !== res.locals.jwtData.id) {
+            return res.status(401).json({ message: " Permissions did not match" })
+        }
+        
+        res.status(200).json({ message: 'Can have data', chats: user.chats})
+    } catch (error) {
+        res.json({error: error.message})
+    }
+}
+
+
+export const deleteChatUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(res.locals.jwtData.id)
+        if (!user) return res.status(401).json({ message: " User not registered or Token Failed " })
+        
+        if (user._id.toString() !== res.locals.jwtData.id) {
+            return res.status(401).json({ message: " Permissions did not match" })
+        }
+        //@ts-ignore
+        user.chats = []
+        await user.save()
+        res.status(200).json({ message: 'Chat Deleted Successfully!'})
+    } catch (error) {
+        res.json({error: error.message})
+    }
+}

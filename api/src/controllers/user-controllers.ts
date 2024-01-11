@@ -108,3 +108,27 @@ export const userVerify = async (req, res, next) => {
         res.json({error: error.message})
     }
 }
+
+
+export const userLogout = async (req, res, next) => {
+    try {
+        const user = await User.findById(res.locals.jwtData.id)
+        if (!user) return res.status(401).json({ message: " User not registered or Token Failed " })
+        
+        if (user._id.toString() !== res.locals.jwtData.id) {
+            return res.status(401).json({ message: " Permissions did not match" })
+        }
+        
+
+        res.clearCookie("auth_token", {
+            path: '/',
+            httpOnly: true,
+            signed: true,
+            sameSite: "none",
+            secure: true,
+        })
+        res.status(200).json({ message: 'User Logged out successfully!'})
+    } catch (error) {
+        res.json({error: error.message})
+    }
+}

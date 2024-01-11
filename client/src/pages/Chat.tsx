@@ -1,10 +1,12 @@
 import { Avatar, Box, Typography, Button, IconButton } from '@mui/material'
 import {red} from '@mui/material/colors'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import ChatItem from '../components/chat/ChatItem'
 import { IoMdSend } from 'react-icons/io'
-import { sendChatRequest } from '../helpers/api-communicator'
+import { deleteUserChats, getUserChats, sendChatRequest } from '../helpers/api-communicator'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 type Message = {
   role: "user" | "assistant";
@@ -17,6 +19,7 @@ export default function Chat() {
   const auth = useAuth()
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [chatMessages, setChatMessages] = useState<Message[]>([])
+  const navigate = useNavigate()
 
 
   const submitHandler = async () => {
@@ -30,7 +33,41 @@ export default function Chat() {
     setChatMessages([...chatData.chats])
   }
 
+  //fetching the chats before laodig the page
+  useLayoutEffect(() => {
+    if (auth?.isLoggedIn && auth.user) {
+      toast.loading("Loading Chats...", { id: "loadchats" })
+      getUserChats().then((data) => {
+        setChatMessages([...data.chats])
+        toast.success("Successfully loaded chats!", { id: "loadchats" })
+      }).catch((err) => {
+        console.log(err)
+        toast.error("Loading Failed",  { id: "loadchats" })
+      })
+    }
+  }, [auth])
+  
+  //redirecting to home page if you are nnot signed in
+  useEffect(() => {
+    if (!auth?.user) {
+      return navigate('/login')
+    }
+  },[auth])
 
+
+
+  // delete Convo 
+  const deleteHandler = async () => {
+    try {
+      toast.loading("Deleting Chats...", { id: "loadchats" })
+      await deleteUserChats()
+      setChatMessages([])
+      toast.success("Successfully deleted the chat!", { id: "loadchats" })
+    } catch (error) {
+      console.log(error)
+      toast.error("Deleting Failed",  { id: "loadchats" })
+    }
+  }
   return (
     <Box sx={{
       display: 'flex',
@@ -72,7 +109,9 @@ export default function Chat() {
             p:3
           }}>Ask me questions 😊. But avoid sharing personal information</Typography>
 
-          <Button sx={{
+          <Button
+            onClick={deleteHandler}
+            sx={{
             width: "200px",
             my: 'auto',
             color: 'white',
