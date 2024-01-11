@@ -10,3 +10,9 @@ export const createToken = (id, email, expiresIn) => {
     return token
 
 }
+
+export const verifyToken = (req, res, next) => {
+    const token = req.signedCookies['auth_token']
+    console.log(token)
+
+}
