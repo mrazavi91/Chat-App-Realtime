@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext'
 import ChatItem from '../components/chat/ChatItem'
 import { IoMdSend } from 'react-icons/io'
 import { sendChatRequest } from '../helpers/api-communicator'
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
+
 type Message = {
   role: "user" | "assistant";
   content: string;
