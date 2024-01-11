@@ -173,7 +173,7 @@ export default function Chat() {
             style={{
               width: "100%",
               backgroundColor: 'transparent',
-              padding: '10px',
+              padding: '30px',
               border: 'none',
               outline: 'none',
               color: 'white',
@@ -182,7 +182,7 @@ export default function Chat() {
           />
           
           <IconButton
-            sx={{ ml: 'auto', color: "white" }}
+            sx={{ ml: 'auto', color: "white", mx: 1}}
             onClick={submitHandler}
           ><IoMdSend />
           </IconButton>

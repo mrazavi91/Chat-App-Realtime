@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound"
 import { useAuth } from "./context/AuthContext"
 
 
+
 function App() {
   const auth = useAuth()
 
@@ -21,6 +22,7 @@ function App() {
         {auth?.isLoggedIn && <Route path="/chat" element={<Chat />} />}
         <Route path="*" element={<NotFound />} />
       </Routes>
+      
       
     </main>
   )
