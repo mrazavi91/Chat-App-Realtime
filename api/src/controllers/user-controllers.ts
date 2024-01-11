@@ -92,3 +92,19 @@ export const userLogin = async (req, res, next) => {
         res.json({error: error.message})
     }
 }
+
+
+export const userVerify = async (req, res, next) => {
+    try {
+        const user = await User.findById(res.locals.jwtData.id)
+        if (!user) return res.status(401).json({ message: " User not registered or Token Failed " })
+        
+        if (user._id.toString() !== res.locals.jwtData.id) {
+            return res.status(401).json({ message: " Permissions did not match" })
+        }
+        
+        res.status(200).json({ message: 'User Logged in Successfully!', name: user.name , email: user.email })
+    } catch (error) {
+        res.json({error: error.message})
+    }
+}
