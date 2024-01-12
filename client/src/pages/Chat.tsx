@@ -1,6 +1,6 @@
 import { Avatar, Box, Typography, Button, IconButton } from '@mui/material'
 import {red} from '@mui/material/colors'
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import ChatItem from '../components/chat/ChatItem'
 import { IoMdSend } from 'react-icons/io'

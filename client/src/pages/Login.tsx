@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Box, Typography, Button } from '@mui/material'
 import CustomisedInput from '../components/shared/CustomisedInput'
 import { IoMdLogIn } from "react-icons/io";
-import axios from 'axios'
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
