@@ -26,7 +26,7 @@ connectToDB()
 
 
 //middlewares 
-app.use(cors({origin: ["http://127.0.0.1:5173", 'https://my-GPT.onrender.com/'] ,credentials: true}))
+app.use(cors({origin: ["http://127.0.0.1:5173", 'https://my-gpt-0abo.onrender.com/'] ,credentials: true}))
 app.use(express.json())
 app.use(cookieParser(process.env.COOKIE_SECRET))
 
@@ -35,9 +35,9 @@ app.use(morgan('dev'))
 
 app.use('/api/v1', appRouter)
 
-app.use(express.static(path.join(__dirname, '/client/dist')))
+app.use(express.static(path.join(__dirname, '../client/dist')))
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname,'../client/dist/index.html'));
 })
 
 
