@@ -20,7 +20,8 @@ connectToDB()
     })
     .catch((e) => console.log(e))
 
-    export const __dirname = path.resolve()
+    
+  const __dirname = path.resolve()
 
 
 
@@ -34,9 +35,9 @@ app.use(morgan('dev'))
 
 app.use('/api/v1', appRouter)
 
-app.use(express.static(path.join(__dirname, '/client/dist')))
+app.use(express.static(path.join(__dirname, '/client')))
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client', 'index.html'));
 })
 
 
