@@ -14,13 +14,23 @@ export const loginUser = async (email: string , password: string) => {
 }
 
 export const checkAuthStatus = async () => {
-    const res = await axios.get('/user/auth-status')
-    if (res.status !== 200) {
-        throw new Error("Unable to authenticate")
-    }
-    const data = await res.data
 
-    return data
+    try {
+        const res = await axios.get('/user/auth-status')
+        if (res.status !== 200) {
+            console.log('error')
+            throw new Error("Unable to authenticate")
+        }
+        const data = await res.data
+        console.log(data)
+
+
+        return data
+    
+        
+    } catch (error) {
+        throw new Error("You are not Authorized")
+    }
     
 }
 

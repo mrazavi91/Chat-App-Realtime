@@ -22,13 +22,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     
     useEffect(() => { 
         const checkStatus = async () => {
-            const data = await checkAuthStatus()
-            if (data) {
-                setUser({ name: data.name, email: data.email })
-                setIsLoggedIn(true)
-            }    
+            try {
+                const data = await checkAuthStatus()
+                console.log(data, 'data')
+                if (data !== undefined) {
+                    setUser({ name: data.name, email: data.email })
+                    setIsLoggedIn(true)
+                } else {
+                    setUser(null)
+                    setIsLoggedIn(false)
+                }     
+                
+            } catch (error) {
+                throw new Error("Sorry you are not Authorized")
+                
+            }
+            
         }
-        checkStatus()
+            checkStatus()
+        
+        
     }, [])
     
     const login = async (email: string, password: string) => { 

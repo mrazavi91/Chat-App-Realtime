@@ -97,6 +97,7 @@ export const userLogin = async (req, res, next) => {
 export const userVerify = async (req, res, next) => {
     try {
         const user = await User.findById(res.locals.jwtData.id)
+        console.log(user)
         if (!user) return res.status(401).json({ message: " User not registered or Token Failed " })
         
         if (user._id.toString() !== res.locals.jwtData.id) {
@@ -105,6 +106,7 @@ export const userVerify = async (req, res, next) => {
         
         res.status(200).json({ message: 'User Logged in Successfully!', name: user.name , email: user.email })
     } catch (error) {
+        console.log(error.message)
         res.json({error: error.message})
     }
 }
