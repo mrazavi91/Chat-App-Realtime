@@ -26,7 +26,7 @@ connectToDB()
 
 
 //middlewares 
-app.use(cors({origin: ["http://127.0.0.1:5173", 'https://my-gpt-0abo.onrender.com/'] ,credentials: true}))
+app.use(cors({origin: ["http://127.0.0.1:5173", 'https://my-gpt-0abo.onrender.com'] ,credentials: true}))
 app.use(express.json())
 app.use(cookieParser(process.env.COOKIE_SECRET))
 
