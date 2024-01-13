@@ -26,12 +26,26 @@ connectToDB()
 
 
 //middlewares 
-app.use(cors({
-  origin: ['https://my-gpt-0abo.onrender.com', "http://127.0.0.1:5173"],
+
+
+
+// Configure CORS options
+const corsOptions = {
+  origin: ['https://my-gpt-0abo.onrender.com', "http://127.0.0.1:5173"], // Adjust this to your frontend origin
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
-  methods: ['GET', 'POST', 'DELETE', 'PUT'],
-  allowedHeaders: ['Content-Type']
-}))
+  optionsSuccessStatus: 204,
+};
+
+// Enable CORS with configured options
+app.use(cors(corsOptions));
+// app.use(cors({
+//   origin: ['https://my-gpt-0abo.onrender.com', "http://127.0.0.1:5173"],
+//   credentials: true,
+//   methods: ['GET', 'POST', 'DELETE', 'PUT'],
+//   allowedHeaders: ['Content-Type']
+// }))
+
 app.use(express.json())
 app.use(cookieParser(process.env.COOKIE_SECRET))
 
