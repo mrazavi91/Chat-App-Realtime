@@ -31,7 +31,7 @@ connectToDB()
 
 // Configure CORS options
 const corsOptions = {
-  origin: ['https://my-gpt-0abo.onrender.com', "http://127.0.0.1:5173"], // Adjust this to your frontend origin
+  origin: true, // Adjust this to your frontend origin
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
