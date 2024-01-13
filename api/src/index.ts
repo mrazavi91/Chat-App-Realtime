@@ -1,5 +1,4 @@
 import path from "path";
-import { connectToDB, disconnectDB } from './db/connection.js'
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
@@ -11,16 +10,21 @@ import cors from 'cors'
 dotenv.config()
 
 //connection to port 
-const app = express()
+// const app = express()
 
 //db connection 
-connectToDB()
-    .then(() => {
-        app.listen(7000, () => console.log('Server is running on port' + 7000))
-    })
-    .catch((e) => console.log(e))
 
-    
+
+
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then(() => {
+    console.log('Connected to MongoDB!');
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
   const __dirname = path.resolve()
 
 
@@ -31,13 +35,14 @@ connectToDB()
 
 // Configure CORS options
 const corsOptions = {
-  origin: true, // Adjust this to your frontend origin
+  origin: ['https://my-gpt-0abo.onrender.com', "http://127.0.0.1:5173"], // Adjust this to your frontend origin
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
 };
 
-// Enable CORS with configured options
+const app = express()
+
 app.use(cors(corsOptions));
 // app.use(cors({
 //   origin: ['https://my-gpt-0abo.onrender.com', "http://127.0.0.1:5173"],
@@ -48,6 +53,8 @@ app.use(cors(corsOptions));
 
 app.use(express.json())
 app.use(cookieParser(process.env.COOKIE_SECRET))
+
+app.listen(3000, () => console.log('Server is running on port 3000'))
 
 //only for dev 
 app.use(morgan('dev'))
