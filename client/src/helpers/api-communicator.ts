@@ -3,11 +3,22 @@ import axios from "axios"
 
 
 export const loginUser = async (email: string , password: string) => {
-    const res = await axios.post('/user/login', { email, password })
-    if (res.status !== 200) {
-        throw new Error("Unable to Login")
-    }
-    const data = await res.data
+    // const res = await axios.post('/user/login', { email, password })
+    // if (res.status !== 200) {
+    //     throw new Error("Unable to Login")
+    // }
+
+    const res = await fetch('http://localhost:3000/api/v1/user/login', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email, password}),
+      });
+    
+    const data = await res.json();
+    
 
     return data
     
