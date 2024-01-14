@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "../axios";
 
 
 
@@ -7,7 +7,7 @@ export const loginUser = async (email: string , password: string) => {
     // if (res.status !== 200) {
     //     throw new Error("Unable to Login")
     // }
-     const res = await axios.post("/api/v1/user/login", { email, password });
+    const res = await axios.post("/api/v1/user/login", { email, password });
         if (res.status !== 200) {
             throw new Error("Unable to login");
         }
@@ -26,7 +26,7 @@ export const loginUser = async (email: string , password: string) => {
     // const data = await res.json();
     
 
-    // return data
+    return data
     
 }
 
