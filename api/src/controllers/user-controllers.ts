@@ -65,7 +65,7 @@ export const userLogin = async (req, res, next) => {
         
         res.clearCookie("auth_token", {
             httpOnly: true,
-            domain: "localhost",
+            // domain: "localhost",
             signed: true,
             path: "/",
             sameSite: "none",
@@ -79,13 +79,14 @@ export const userLogin = async (req, res, next) => {
         expires.setDate(expires.getDate() + 7)
         res.cookie("auth_token", token, {
             path: "/",
-            domain: "localhost",
+            // domain: "localhost",
             expires,
             httpOnly: true,
             signed: true,
             sameSite: "none",
             secure: true,
         });
+
 
         res.status(200).json({ message: 'User Logged in Successfully!', name: user.name , email: user.email })
     } catch (error) {
