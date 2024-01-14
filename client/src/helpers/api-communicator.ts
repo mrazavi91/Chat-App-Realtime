@@ -8,7 +8,7 @@ export const loginUser = async (email: string , password: string) => {
     //     throw new Error("Unable to Login")
     // }
 
-    const res = await fetch('http://localhost:3000/api/v1/user/login', {
+    const res = await fetch('/api/v1/user/login', {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -59,7 +59,7 @@ export const sendChatRequest = async (message: string) => {
 
 
 export const getUserChats = async () => {
-    const res = await axios.get('/chat/all-chats')
+    const res = await axios.get('/api/v1/chat/all-chats')
     if (res.status !== 200) {
         throw new Error("Unable to authenticate")
     }
