@@ -96,7 +96,7 @@ export const getUserChats = async () => {
         const data = res.json()
         return data
     } catch (error) {
-        console.log(error.message, 'logout')
+        console.log(error, 'logout')
         
     }
     
@@ -119,7 +119,7 @@ export const deleteUserChats = async () => {
         const data = res.json()
         return data
     } catch (error) {
-        console.log(error.message, 'logout')
+        console.log(error, 'logout')
         
     }
     
@@ -144,7 +144,7 @@ export const userLogout = async () => {
         const data = res.json()
         return data
     } catch (error) {
-        console.log(error.message, 'logout')
+        console.log(error, 'logout')
         
     }
     
