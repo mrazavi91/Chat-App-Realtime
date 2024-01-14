@@ -7,40 +7,53 @@ export const loginUser = async (email: string , password: string) => {
     // if (res.status !== 200) {
     //     throw new Error("Unable to Login")
     // }
+     const res = await axios.post("/api/v1/user/login", { email, password });
+        if (res.status !== 200) {
+            throw new Error("Unable to login");
+        }
+        const data = await res.data;
+        return data;
 
-    const res = await fetch('/api/v1/user/login', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({email, password}),
-      });
+    // const res = await fetch('/api/v1/user/login', {
+    //     method: 'POST',
+    //     credentials: 'include',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({email, password}),
+    //   });
     
-    const data = await res.json();
+    // const data = await res.json();
     
 
-    return data
+    // return data
     
 }
 
 export const checkAuthStatus = async () => {
 
     try {
-        const res = await axios.get('/user/auth-status')
+
+        const res = await axios.get("/api/v1/user/auth-status");
         if (res.status !== 200) {
-            console.log('error')
-            throw new Error("Unable to authenticate")
+            throw new Error("Unable to authenticate");
         }
-        const data = await res.data
-        console.log(data)
+        const data = await res.data;
+        return data;
 
 
-        return data
+        // const res = await fetch('/api/v1/user/auth-status', {
+        //     method: 'GET',
+        //     credentials: 'include',
+        // })
+        // const data = await res.json()
+
+        // console.log(data)
+        // return data
     
         
     } catch (error) {
-        throw new Error("You are not Authorized")
+        throw new Error("You are not Authorized because you are not logged in!")
     }
     
 }
@@ -81,7 +94,7 @@ export const deleteUserChats = async () => {
 }
 
 export const userLogout = async () => {
-    const res = await axios.get('/user/logout')
+    const res = await axios.get('/api/v1/user/logout')
     if (res.status !== 200) {
         throw new Error("Unable logout!")
     }
@@ -93,7 +106,7 @@ export const userLogout = async () => {
 
 //sign up 
 export const signupUser = async (name: string, email: string , password: string) => {
-    const res = await axios.post('/user/signup', { name, email, password })
+    const res = await axios.post('/api/v1/user/signup', { name, email, password })
     if (res.status !== 201) {
         throw new Error("Unable to Signup ")
     }
