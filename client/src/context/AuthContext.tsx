@@ -24,14 +24,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const checkStatus = async () => {
             try {
                 const data = await checkAuthStatus()
-                console.log(data, 'data')
-                if (data !== undefined) {
-                    setUser({ name: data.name, email: data.email })
-                    setIsLoggedIn(true)
-                } else {
-                    setUser(null)
+                if (data.message === 'Token Not Received') {
                     setIsLoggedIn(false)
-                }     
+                } else {
+                    setUser({ email: data.email, name: data.name });
+                    setIsLoggedIn(true);
+                }
                 
             } catch (error) {
                 throw new Error("Sorry you are not Authorized")
