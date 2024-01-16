@@ -112,7 +112,9 @@ export const deleteUserChats = async () => {
 
     // return data
     try {
-        const res = await fetch('/api/v1/chat/delete')
+        const res = await fetch('/api/v1/chat/delete', {
+            method: "DELETE"
+        })
         if (res.status !== 200) {
             throw new Error('Unable to clear the chat!')
         }
